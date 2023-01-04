@@ -1,45 +1,43 @@
 <script setup lang="ts">
-import { VBtn } from 'vuetify/components'
-import { defineComponent, h } from 'vue'
+import { ref } from 'vue'
 import { useConfirm, useSnackbar } from '../../src'
 
 const confirm = useConfirm()
 const toast = useSnackbar()
 
-async function show() {
+const items = ref(['Vue', 'React', 'Solid', 'Angular', 'Svelte'])
+
+async function removeItem(index: number) {
   try {
     await confirm({
-      content: 'Hehehe',
+      content: `This will permanently delete ${items.value[index]}`,
       dialogProps: {
-        persistent: false,
+        persistent: true,
         width: 400,
       },
     })
+    items.value.splice(index, 1)
     toast({
-      text: 'Confirmed',
+      text: 'Item removed',
     })
   }
-  catch {
-    toast({
-      text: 'Cancelled',
-    })
-  }
-}
-
-function showToast() {
-  toast({
-    contentComponent: defineComponent({
-      setup: () => () => h('div', 'hello world'),
-    }),
-  })
+  catch {}
 }
 </script>
 
 <template>
-  <VBtn @click="show">
-    Open
-  </VBtn>
-  <VBtn @click="showToast">
-    Open Toast
-  </VBtn>
+  <VCard class="mx-auto pa-2 mt-2" max-width="600">
+    <VList>
+      <VListItem v-for="(item, index) of items" :key="index" :title="item">
+        <template #append>
+          <VBtn
+            color="grey-lighten-1"
+            icon="mdi-delete"
+            variant="text"
+            @click="removeItem(index)"
+          />
+        </template>
+      </VListItem>
+    </VList>
+  </VCard>
 </template>
