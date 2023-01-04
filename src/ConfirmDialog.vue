@@ -83,12 +83,6 @@ function cancel() {
 }
 </script>
 
-<script lang="ts">
-export default {
-  inheritAttrs: false,
-}
-</script>
-
 <template>
   <VThemeProvider :theme="theme">
     <VDialog v-bind="dialogProps" v-model="isOpen">
