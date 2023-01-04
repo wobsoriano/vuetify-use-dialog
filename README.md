@@ -39,15 +39,15 @@ Call the `useConfirm` or `useSnackbar` composable anywhere:
 import { useConfirm, useSnackbar } from 'vuetify-use-dialog'
 
 const createConfirm = useConfirm()
-const showSnackbar = useSnackbar()
+const createSnackbar = useSnackbar()
 
 async function handleConfirm() {
   try {
     await createConfirm({ content: 'This action is permanent!' })
-    showSnackbar({ text: 'Confirmed' })
+    createSnackbar({ text: 'Confirmed' })
   }
   catch {
-    showSnackbar({ text: 'Cancelled' })
+    createSnackbar({ text: 'Cancelled' })
   }
 }
 </script>
