@@ -19,7 +19,7 @@ Install the plugin (after vuetify)
 ```ts
 import { createApp } from 'vue'
 import { createVuetify } from 'vuetify'
-import confirmDialog from 'vuetify-use-dialog'
+import VuetifyUseDialog from 'vuetify-use-dialog'
 
 import App from './App.vue'
 
@@ -27,7 +27,7 @@ const app = createApp(App)
 const vuetify = createVuetify()
 
 app.use(vuetify)
-app.use(confirmDialog)
+app.use(VuetifyUseDialog)
 
 app.mount('#app')
 ```
@@ -89,7 +89,7 @@ async function handleConfirm() {
 Global options:
 
 ```ts
-app.use(confirmDialog, {
+app.use(VuetifyUseDialog, {
   confirmDialog: {
     // useConfirm options
     title: 'Are you sure?'
