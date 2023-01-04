@@ -90,7 +90,7 @@ function cancel() {
         <VCardTitle v-bind="cardTitleProps">
           {{ title }}
         </VCardTitle>
-        <VCardText v-if="content" v-bind="cardTextProps">
+        <VCardText v-bind="cardTextProps">
           <template v-if="contentComponent">
             <Component :is="contentComponent" />
           </template>
