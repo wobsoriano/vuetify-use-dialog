@@ -5,8 +5,13 @@ import ConfirmDialog from './ConfirmDialog.vue'
 import Snackbar from './Snackbar.vue'
 import { ConfirmDialogKey, type ConfirmDialogKeyValue, type ConfirmDialogOptions, type SnackbarOptions, mount } from './utils'
 
+interface GlobalOptions {
+  confirmDialog: ConfirmDialogOptions
+  snackbar: SnackbarOptions
+}
+
 const plugin: Plugin = {
-  install(app) {
+  install(app, globalOptions?: GlobalOptions) {
     let unmountDialog: () => void
     let unmountSnackbar: () => void
 
@@ -17,7 +22,10 @@ const plugin: Plugin = {
 
     function mountDialog(options: ConfirmDialogOptions) {
       unmountDialog?.()
-      const { destroy } = mount(ConfirmDialog, options, app)
+      const { destroy } = mount(ConfirmDialog, {
+        ...globalOptions?.confirmDialog ?? {},
+        ...options,
+      }, app)
       unmountDialog = destroy
       return new Promise((resolve, reject) => {
         state.resolve = resolve
@@ -27,7 +35,10 @@ const plugin: Plugin = {
 
     function mountSnackbar(options: SnackbarOptions) {
       unmountSnackbar?.()
-      const { destroy } = mount(Snackbar, options, app)
+      const { destroy } = mount(Snackbar, {
+        ...globalOptions?.snackbar ?? {},
+        ...options,
+      }, app)
       unmountSnackbar = destroy
     }
 
