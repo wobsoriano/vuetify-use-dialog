@@ -15,7 +15,9 @@
   "keywords": [
     "vuetify",
     "vue",
-    "confirm"
+    "confirm",
+    "snackbar",
+    "toast"
   ],
   "sideEffects": false,
   "exports": {

@@ -1,6 +1,6 @@
 import type { AllowedComponentProps, App, Component, InjectionKey, VNode, VNodeProps } from 'vue'
 import { createVNode, render } from 'vue'
-import type { VBtn, VCard, VCardActions, VCardText, VCardTitle, VDialog } from 'vuetify/components'
+import type { VBtn, VCard, VCardActions, VCardText, VCardTitle, VDialog, VSnackbar } from 'vuetify/components'
 
 type ExtractProps<TComponent> =
   TComponent extends new () => {
@@ -9,9 +9,10 @@ type ExtractProps<TComponent> =
     ? Omit<P, keyof VNodeProps | keyof AllowedComponentProps>
     : never
 
-export interface Options {
+export interface ConfirmDialogOptions {
   title?: string
   content?: string
+  contentComponent?: Component
   confirmationText?: string
   cancellationText?: string
   dialogProps?: ExtractProps<typeof VDialog>
@@ -24,7 +25,17 @@ export interface Options {
   theme?: string
 }
 
-export function mount(component: Component, props: Options, app: App) {
+export interface SnackbarOptions {
+  text?: string
+  contentComponent?: Component
+  snackbarProps?: ExtractProps<typeof VSnackbar>
+  showCloseButton?: boolean
+  closeButtonProps?: ExtractProps<typeof VBtn>
+  closeButtonText?: string
+  theme?: string
+}
+
+export function mount(component: Component, props: ConfirmDialogOptions | SnackbarOptions, app: App) {
   let el: HTMLElement | null = null
 
   let vNode: VNode | null = createVNode(component, props as any)
@@ -53,7 +64,8 @@ export function mount(component: Component, props: Options, app: App) {
 }
 
 export interface ConfirmDialogKeyValue {
-  mountDialog: (options: Options) => Promise<undefined>
+  mountDialog: (options: ConfirmDialogOptions) => Promise<undefined>
+  mountSnackbar: (options: SnackbarOptions) => void
   state: {
     resolve: ((value: unknown) => void) | null
     reject: ((value: unknown) => void) | null

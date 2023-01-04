@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { VBtn, VCard, VCardActions, VCardText, VCardTitle, VDialog, VSpacer, VThemeProvider } from 'vuetify/components'
-import { inject, ref } from 'vue'
+import { type Component, type PropType, inject, ref } from 'vue'
 import { ConfirmDialogKey } from './utils'
 
 defineProps({
@@ -13,6 +13,10 @@ defineProps({
     type: String,
     required: false,
     default: '',
+  },
+  contentComponent: {
+    type: Object as PropType<Component>,
+    required: false,
   },
   confirmationText: {
     type: String,
@@ -93,7 +97,12 @@ export default {
           {{ title }}
         </VCardTitle>
         <VCardText v-if="content" v-bind="cardTextProps">
-          <p>{{ content }}</p>
+          <template v-if="contentComponent">
+            <Component :is="contentComponent" />
+          </template>
+          <template v-else>
+            <p>{{ content }}</p>
+          </template>
         <!-- <VTextField label="Label" variant="underlined" /> -->
         </VCardText>
         <VCardActions v-bind="cardActionsProps">

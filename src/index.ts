@@ -2,28 +2,40 @@ import type { Plugin } from 'vue'
 import { inject, reactive, readonly } from 'vue'
 import { useTheme } from 'vuetify'
 import ConfirmDialog from './ConfirmDialog.vue'
-import { ConfirmDialogKey, type ConfirmDialogKeyValue, type Options, mount } from './utils'
+import Snackbar from './Snackbar.vue'
+import { ConfirmDialogKey, type ConfirmDialogKeyValue, type ConfirmDialogOptions, type SnackbarOptions, mount } from './utils'
 
 const plugin: Plugin = {
   install(app) {
-    let unmount: Function
+    let unmountDialog: () => void
+    let unmountSnackbar: () => void
 
     const state = reactive<ConfirmDialogKeyValue['state']>({
       resolve: null,
       reject: null,
     })
 
-    function mountDialog(options: Options) {
-      unmount?.()
+    function mountDialog(options: ConfirmDialogOptions) {
+      unmountDialog?.()
       const { destroy } = mount(ConfirmDialog, options, app)
-      unmount = destroy
+      unmountDialog = destroy
       return new Promise((resolve, reject) => {
         state.resolve = resolve
         state.reject = reject
       })
     }
 
-    app.provide(ConfirmDialogKey, { mountDialog, state: readonly(state) })
+    function mountSnackbar(options: SnackbarOptions) {
+      unmountSnackbar?.()
+      const { destroy } = mount(Snackbar, options, app)
+      unmountSnackbar = destroy
+    }
+
+    app.provide(ConfirmDialogKey, {
+      mountDialog,
+      mountSnackbar,
+      state: readonly(state),
+    })
   },
 }
 
@@ -31,7 +43,7 @@ function useConfirm() {
   const dialog = inject(ConfirmDialogKey)
   const theme = useTheme()
 
-  function confirm(options: Options) {
+  function confirm(options: ConfirmDialogOptions) {
     if (!dialog)
       throw new Error('Missing dialog instance')
 
@@ -44,7 +56,26 @@ function useConfirm() {
   return confirm
 }
 
+function useSnackbar() {
+  const dialog = inject(ConfirmDialogKey)
+
+  const theme = useTheme()
+
+  function confirm(options: SnackbarOptions) {
+    if (!dialog)
+      throw new Error('Missing dialog instance')
+
+    return dialog.mountSnackbar({
+      theme: theme.name.value,
+      ...options,
+    })
+  }
+
+  return confirm
+}
+
 export {
   plugin as default,
   useConfirm,
+  useSnackbar,
 }

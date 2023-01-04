@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { VBtn } from 'vuetify/components'
-import { useConfirm } from '../../src'
+import { defineComponent, h } from 'vue'
+import { useConfirm, useSnackbar } from '../../src'
 
 const confirm = useConfirm()
+const toast = useSnackbar()
 
 async function show() {
   try {
@@ -13,16 +15,31 @@ async function show() {
         width: 400,
       },
     })
-    console.log('Confirmed')
+    toast({
+      text: 'Confirmed',
+    })
   }
   catch {
-    console.log('Cancelled')
+    toast({
+      text: 'Cancelled',
+    })
   }
+}
+
+function showToast() {
+  toast({
+    contentComponent: defineComponent({
+      setup: () => () => h('div', 'hello world'),
+    }),
+  })
 }
 </script>
 
 <template>
   <VBtn @click="show">
     Open
+  </VBtn>
+  <VBtn @click="showToast">
+    Open Toast
   </VBtn>
 </template>
