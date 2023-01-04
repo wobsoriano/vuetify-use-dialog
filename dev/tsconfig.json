@@ -1,9 +1,10 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
+    "baseUrl": ".",
     "types": ["vite/client"],
     "paths": {
-      "v-places-autocomplete": ["../src"]
+      "v-dialog-confirm": ["../src"]
     }
   },
   "include": ["./**/*"]

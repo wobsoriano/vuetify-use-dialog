@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useConfirm, useSnackbar } from '../../src'
+import { useConfirm, useSnackbar } from 'v-dialog-confirm'
 
 const confirm = useConfirm()
 const toast = useSnackbar()

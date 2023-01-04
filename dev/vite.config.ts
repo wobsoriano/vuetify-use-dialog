@@ -13,7 +13,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      'v-places-autocomplete': path.relative(__dirname, '../src'),
+      'v-dialog-confirm': path.relative(__dirname, '../src'),
     },
   },
 })
