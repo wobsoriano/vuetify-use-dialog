@@ -2,7 +2,7 @@
 
 > Confirming user choice is a good thing to do, it should also be easy to do.
 
-Simple confirmation dialog built on top of [Vuetify dialog](https://next.vuetifyjs.com/en/components/dialogs/).
+Simple confirmation dialog and snackbar composable built on top of [Vuetify](https://next.vuetifyjs.com).
 
 ## Installation
 
@@ -30,21 +30,22 @@ app.use(confirmDialog)
 app.mount('#app')
 ```
 
-Call the `useConfirm` composable wherever you need the `confirm` function.
+Call the `useConfirm` or `useSnackbar` composable anywhere:
 
 ```vue
 <script setup lang="ts">
-import { useConfirm } from 'v-confirm-dialog'
+import { useConfirm, useSnackbar } from 'v-confirm-dialog'
 
 const createConfirm = useConfirm()
+const showSnackbar = useSnackbar()
 
 async function handleConfirm() {
   try {
     await createConfirm({ content: 'This action is permanent!' })
-    console.log('Confirmed')
+    showSnackbar({ text: 'Confirmed' })
   }
   catch {
-    console.log('Cancelled')
+    showSnackbar({ text: 'Cancelled' })
   }
 }
 </script>
@@ -58,6 +59,8 @@ async function handleConfirm() {
 
 ## Options
 
+### `useConfirm`
+
 | Name                                    | Type        | Default           | Description                                                                                                                                                                                                                            |
 | --------------------------------------- | ----------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **`title`**                             | `string` | `'Are you sure?'` | Dialog title.                                                                                                                                                                                                                          |
@@ -70,6 +73,16 @@ async function handleConfirm() {
 | **`cancellationButtonProps`**           | `object`    | `{}`              | [VBtn](https://next.vuetifyjs.com/en/api/v-btn/#props) props for the cancellation button.                                                                                                                                 |
 | **`cardTitleProps`**                        | `object`    | `{}`              | [VCardTitle](https://next.vuetifyjs.com/en/api/v-card-title/#props) props for the dialog title.                                                                                                                                         |
 | **`cardTextProps`**                      | `object`    | `{}`              | [VCardText](https://next.vuetifyjs.com/en/api/v-card-text/#props) props for the dialog content.                                                                                                                                   |
+
+### `useSnackbar`
+
+| Name                                    | Type        | Default           | Description                                                                                                                                                                                                                            |
+| --------------------------------------- | ----------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`text`**                             | `string` | `''` | Snackbar text.                                                                                                                                                              |
+| **`snackbarProps`**                       | `object`    | `{}`              | [VSnackbar](https://next.vuetifyjs.com/en/api/v-snackbar/#props) props.                                                                                                                                                             |
+| **`showCloseButton`**                       | `boolean` | `true`              | Show the close button.
+| **`closeButtonText`**                       | `string` | `'Close'`              | Close button text 
+| **`closeButtonProps`**                       | `object`    | `{}`              | [VBtn](https://next.vuetifyjs.com/en/api/v-dialog/#props) props.                                                                                                                                                             |
 
 ## License
 
