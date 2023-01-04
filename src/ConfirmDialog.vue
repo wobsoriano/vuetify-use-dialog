@@ -118,6 +118,7 @@ const finalDialogProps = computed(() => {
     onAfterLeave() {
       props.dialogProps.onAfterLeave?.()
       props.destroy()
+      dialog?.state.promiseIds.delete(props.promiseId)
     },
   }
 })
