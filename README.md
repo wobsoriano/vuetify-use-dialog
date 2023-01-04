@@ -84,7 +84,7 @@ async function handleConfirm() {
 | **`snackbarProps`**                       | `object`    | `{}`              | [VSnackbar](https://next.vuetifyjs.com/en/api/v-snackbar/#props) props.                                                                                                                                                             |
 | **`showCloseButton`**                       | `boolean` | `true`              | Show the close button.
 | **`closeButtonText`**                       | `string` | `'Close'`              | Close button text 
-| **`closeButtonProps`**                       | `object`    | `{}`              | [VBtn](https://next.vuetifyjs.com/en/api/v-dialog/#props) props.                                                                                                                                                             |
+| **`closeButtonProps`**                       | `object`    | `{}`              | [VBtn](https://next.vuetifyjs.com/en/api/v-btn/#props) props.                                                                                                                                                             |
 
 Global options:
 
