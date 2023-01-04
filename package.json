@@ -13,10 +13,9 @@
   },
   "bugs": "https://github.com/wobsoriano/v-confirm-dialog/issues",
   "keywords": [
-    "places",
-    "autocomplete",
     "vuetify",
-    "vue"
+    "vue",
+    "confirm"
   ],
   "sideEffects": false,
   "exports": {
