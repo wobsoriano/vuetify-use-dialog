@@ -22,6 +22,11 @@ const props = defineProps({
     type: String,
     required: false,
   },
+  confirmationKeywordTextFieldProps: {
+    type: Object,
+    required: false,
+    default: () => ({}),
+  },
   confirmationText: {
     type: String,
     required: false,
@@ -112,7 +117,7 @@ const confirmationButtonDisabled = computed(() => {
             <Component :is="contentComponent" />
           </template>
           <template v-else-if="confirmationKeyword">
-            <VTextField ref="textFieldInput" v-model="textField" variant="underlined" />
+            <VTextField ref="textFieldInput" v-model="textField" v-bind="confirmationKeywordTextFieldProps" variant="underlined" />
           </template>
           <template v-else>
             {{ content }}

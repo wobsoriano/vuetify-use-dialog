@@ -11,7 +11,6 @@ async function removeItem(index: number) {
   try {
     await confirm({
       content: `This will permanently delete ${items.value[index]}`,
-      // confirmationKeyword: 'Hello',
       dialogProps: {
         persistent: true,
         width: 400,
@@ -24,10 +23,37 @@ async function removeItem(index: number) {
   }
   catch {}
 }
+
+async function clear() {
+  try {
+    await confirm({
+      title: 'Clear items',
+      confirmationKeyword: 'vuetify',
+      dialogProps: {
+        persistent: true,
+        width: 400,
+      },
+      confirmationKeywordTextFieldProps: {
+        label: 'Enter password (pw: vuetify)',
+      },
+    })
+    items.value = []
+    toast({
+      text: 'List cleared',
+    })
+  }
+  catch {}
+}
 </script>
 
 <template>
   <VCard class="mx-auto pa-2 mt-2" max-width="600">
+    <VToolbar color="rgba(0, 0, 0, 0)">
+      <VToolbarTitle>Demo</VToolbarTitle>
+      <template #append>
+        <VBtn icon="mdi-delete-sweep" @click="clear" />
+      </template>
+    </VToolbar>
     <VList>
       <VListItem v-for="(item, index) of items" :key="index" :title="item">
         <template #append>
