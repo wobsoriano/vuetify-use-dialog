@@ -4,6 +4,8 @@
 
 Simple confirmation dialog and snackbar composable built on top of [Vuetify](https://next.vuetifyjs.com).
 
+Demo: https://v-confirm-dialog.vercel.app
+
 ## Installation
 
 ```bash
