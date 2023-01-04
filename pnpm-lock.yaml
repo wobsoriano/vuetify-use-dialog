@@ -7,6 +7,7 @@ specifiers:
   '@vitejs/plugin-vue': ^4.0.0
   bumpp: ^8.2.1
   eslint: ^8.31.0
+  nanoid: ^4.0.0
   roboto-fontface: ^0.10.0
   typescript: ^4.9.4
   unbuild: ^1.0.2
@@ -14,6 +15,9 @@ specifiers:
   vite-plugin-vuetify: ^1.0.1
   vue: ^3.2.45
   vuetify: ^3.0.7
+
+dependencies:
+  nanoid: 4.0.0
 
 devDependencies:
   '@antfu/eslint-config': 0.34.0_iukboom6ndih5an6iafl45j2fe
@@ -2827,6 +2831,12 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
     dev: true
+
+  /nanoid/4.0.0:
+    resolution: {integrity: sha512-IgBP8piMxe/gf73RTQx7hmnhwz0aaEXYakvqZyE302IXW3HyVNhdNGC+O2MwMAVhLEnvXlvKtGbtJf6wvHihCg==}
+    engines: {node: ^14 || ^16 || >=18}
+    hasBin: true
+    dev: false
 
   /natural-compare-lite/1.4.0:
     resolution: {integrity: sha512-Tj+HTDSJJKaZnfiuw+iaF9skdPpTo2GtEly5JHnWV/hfv2Qj/9RKsGISQtLh2ox3l5EAGw487hnBee0sIJ6v2g==}

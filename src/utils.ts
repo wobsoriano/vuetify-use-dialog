@@ -37,7 +37,7 @@ export interface SnackbarOptions {
   theme?: string
 }
 
-export function mount(component: Component, props: ConfirmDialogOptions | SnackbarOptions, app: App) {
+export function mount(component: Component, props: ConfirmDialogOptions & { promiseId: string } | SnackbarOptions, app: App) {
   let el: HTMLElement | null = null
 
   function destroy() {
@@ -73,8 +73,10 @@ export interface ConfirmDialogKeyValue {
   mountDialog: (options: ConfirmDialogOptions) => Promise<undefined>
   mountSnackbar: (options: SnackbarOptions) => void
   state: {
-    resolve: ((value: unknown) => void) | null
-    reject: ((value: unknown) => void) | null
+    'promiseIds': Map<string, {
+      resolve: ((value: unknown) => void)
+      reject: ((value: unknown) => void)
+    }>
   }
 }
 

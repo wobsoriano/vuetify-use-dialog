@@ -69,5 +69,8 @@
     "vite-plugin-vuetify": "^1.0.1",
     "vue": "^3.2.45",
     "vuetify": "^3.0.7"
+  },
+  "dependencies": {
+    "nanoid": "^4.0.0"
   }
 }

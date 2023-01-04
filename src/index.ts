@@ -1,6 +1,7 @@
 import type { Plugin } from 'vue'
-import { inject, reactive, readonly } from 'vue'
+import { inject, reactive } from 'vue'
 import { useTheme } from 'vuetify'
+import { nanoid } from 'nanoid'
 import ConfirmDialog from './ConfirmDialog.vue'
 import Snackbar from './Snackbar.vue'
 import { ConfirmDialogKey, type ConfirmDialogKeyValue, type ConfirmDialogOptions, type SnackbarOptions, mount } from './utils'
@@ -12,19 +13,22 @@ interface GlobalOptions {
 
 const plugin: Plugin = {
   install(app, globalOptions?: GlobalOptions) {
-    const state = reactive<ConfirmDialogKeyValue['state']>({
-      resolve: null,
-      reject: null,
-    })
+    const state = reactive<ConfirmDialogKeyValue['state']>({ promiseIds: new Map() })
 
     function mountDialog(options: ConfirmDialogOptions) {
+      const promiseId = nanoid()
+
       mount(ConfirmDialog, {
         ...globalOptions?.confirmDialog ?? {},
         ...options,
+        promiseId,
       }, app)
+
       return new Promise((resolve, reject) => {
-        state.resolve = resolve
-        state.reject = reject
+        state.promiseIds.set(promiseId, {
+          resolve,
+          reject,
+        })
       })
     }
 
@@ -38,7 +42,7 @@ const plugin: Plugin = {
     app.provide(ConfirmDialogKey, {
       mountDialog,
       mountSnackbar,
-      state: readonly(state),
+      state,
     })
   },
 }

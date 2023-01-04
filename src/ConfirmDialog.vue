@@ -80,6 +80,10 @@ const props = defineProps({
     type: Function,
     required: true,
   },
+  promiseId: {
+    type: String,
+    required: true,
+  },
 })
 
 const dialog = inject(ConfirmDialogKey)
@@ -88,12 +92,12 @@ const textFieldInput = ref<HTMLInputElement | null>(null)
 const textField = ref('')
 
 function confirm() {
-  dialog?.state.resolve?.(undefined)
+  dialog?.state.promiseIds.get(props.promiseId)?.resolve?.(undefined)
   isOpen.value = false
 }
 
 function cancel() {
-  dialog?.state.reject?.(undefined)
+  dialog?.state.promiseIds.get(props.promiseId)?.reject?.(undefined)
   isOpen.value = false
 }
 
