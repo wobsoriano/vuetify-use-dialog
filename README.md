@@ -36,11 +36,11 @@ Call the `useConfirm` composable wherever you need the `confirm` function.
 <script setup lang="ts">
 import { useConfirm } from 'v-confirm-dialog'
 
-const confirm = useConfirm()
+const createConfirm = useConfirm()
 
-async function show() {
+async function handleConfirm() {
   try {
-    await confirm({ content: 'This action is permanent!' })
+    await createConfirm({ content: 'This action is permanent!' })
     console.log('Confirmed')
   }
   catch {
