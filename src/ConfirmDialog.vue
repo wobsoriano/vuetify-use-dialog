@@ -107,11 +107,21 @@ const confirmationButtonDisabled = computed(() => {
 
   return props.confirmationKeyword !== textField.value
 })
+
+const finalDialogProps = computed(() => {
+  return {
+    ...props.dialogProps,
+    onAfterLeave() {
+      props.dialogProps.onAfterLeave?.()
+      props.destroy()
+    },
+  }
+})
 </script>
 
 <template>
   <VThemeProvider :theme="theme">
-    <VDialog v-bind="dialogProps" v-model="isOpen" @after-leave="props.destroy">
+    <VDialog v-bind="finalDialogProps" v-model="isOpen">
       <VCard v-bind="cardProps">
         <VCardTitle v-bind="cardTitleProps">
           {{ title }}

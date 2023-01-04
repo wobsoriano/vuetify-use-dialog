@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { VBtn, VSnackbar, VThemeProvider } from 'vuetify/components'
-import { type Component, type PropType, ref } from 'vue'
+import { type Component, type PropType, computed, ref } from 'vue'
 
 const props = defineProps({
   text: {
@@ -43,11 +43,21 @@ const props = defineProps({
 })
 
 const snackbar = ref(true)
+
+const finalSnackbarProps = computed(() => {
+  return {
+    ...props.snackbarProps,
+    onAfterLeave() {
+      props.snackbarProps.onAfterLeave?.()
+      props.destroy()
+    },
+  }
+})
 </script>
 
 <template>
   <VThemeProvider :theme="theme">
-    <VSnackbar v-bind="snackbarProps" v-model="snackbar" @after-leave="props.destroy">
+    <VSnackbar v-bind="finalSnackbarProps" v-model="snackbar">
       <template v-if="contentComponent">
         <Component :is="contentComponent" />
       </template>
