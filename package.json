@@ -1,0 +1,70 @@
+{
+  "name": "v-confirm-dialog",
+  "type": "module",
+  "version": "0.0.4",
+  "packageManager": "pnpm@7.19.0",
+  "description": "",
+  "author": "Robert Soriano <sorianorobertc@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/wobsoriano/v-confirm-dialog#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wobsoriano/v-confirm-dialog.git"
+  },
+  "bugs": "https://github.com/wobsoriano/v-confirm-dialog/issues",
+  "keywords": [
+    "places",
+    "autocomplete",
+    "vuetify",
+    "vue"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "*",
+        "dist/*",
+        "dist/*.d.ts",
+        "dist/*/index.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "dev": "vite serve dev",
+    "dev:build": "vite build dev",
+    "dev:preview": "vite preview dev",
+    "lint": "eslint .",
+    "prepublishOnly": "pnpm build"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.0",
+    "vuetify": "^3.0.0"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^0.34.0",
+    "@mdi/font": "^7.1.96",
+    "@types/node": "^18.11.18",
+    "@vitejs/plugin-vue": "^4.0.0",
+    "eslint": "^8.31.0",
+    "roboto-fontface": "^0.10.0",
+    "typescript": "^4.9.4",
+    "unbuild": "^1.0.2",
+    "vite": "^4.0.4",
+    "vite-plugin-vuetify": "^1.0.1",
+    "vue": "^3.2.45",
+    "vuetify": "^3.0.7"
+  }
+}
