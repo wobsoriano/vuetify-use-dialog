@@ -1,15 +1,15 @@
-# v-confirm-dialog
+# vuetify-use-dialog
 
 > Confirming user choice is a good thing to do, it should also be easy to do.
 
 Simple confirmation dialog and snackbar composable built on top of [Vuetify](https://next.vuetifyjs.com).
 
-Demo: https://v-confirm-dialog.vercel.app
+Demo: https://vuetify-use-dialog.vercel.app
 
 ## Installation
 
 ```bash
-npm install v-confirm-dialog
+npm install vuetify-use-dialog
 ```
 
 ## Usage
@@ -19,7 +19,7 @@ Install the plugin (after vuetify)
 ```ts
 import { createApp } from 'vue'
 import { createVuetify } from 'vuetify'
-import confirmDialog from 'v-confirm-dialog'
+import confirmDialog from 'vuetify-use-dialog'
 
 import App from './App.vue'
 
@@ -36,7 +36,7 @@ Call the `useConfirm` or `useSnackbar` composable anywhere:
 
 ```vue
 <script setup lang="ts">
-import { useConfirm, useSnackbar } from 'v-confirm-dialog'
+import { useConfirm, useSnackbar } from 'vuetify-use-dialog'
 
 const createConfirm = useConfirm()
 const showSnackbar = useSnackbar()

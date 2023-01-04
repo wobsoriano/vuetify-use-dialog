@@ -13,7 +13,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      'v-dialog-confirm': path.relative(__dirname, '../src'),
+      'vuetify-use-dialog': path.relative(__dirname, '../src'),
     },
   },
 })

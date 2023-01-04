@@ -3,7 +3,7 @@
   "compilerOptions": {
     "types": ["vite/client"],
     "paths": {
-      "v-dialog-confirm": ["../src"]
+      "vuetify-use-dialog": ["../src"]
     }
   },
   "include": ["./**/*"]

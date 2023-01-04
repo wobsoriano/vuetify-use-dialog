@@ -1,17 +1,17 @@
 {
-  "name": "v-confirm-dialog",
+  "name": "vuetify-use-dialog",
   "type": "module",
-  "version": "0.1.2",
+  "version": "0.0.0",
   "packageManager": "pnpm@7.19.0",
   "description": "",
   "author": "Robert Soriano <sorianorobertc@gmail.com>",
   "license": "MIT",
-  "homepage": "https://github.com/wobsoriano/v-confirm-dialog#readme",
+  "homepage": "https://github.com/wobsoriano/vuetify-use-dialog#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wobsoriano/v-confirm-dialog.git"
+    "url": "git+https://github.com/wobsoriano/vuetify-use-dialog.git"
   },
-  "bugs": "https://github.com/wobsoriano/v-confirm-dialog/issues",
+  "bugs": "https://github.com/wobsoriano/vuetify-use-dialog/issues",
   "keywords": [
     "vuetify",
     "vue",
