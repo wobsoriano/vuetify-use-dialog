@@ -76,6 +76,10 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  destroy: {
+    type: Function,
+    required: true,
+  },
 })
 
 const dialog = inject(ConfirmDialogKey)
@@ -107,7 +111,7 @@ const confirmationButtonDisabled = computed(() => {
 
 <template>
   <VThemeProvider :theme="theme">
-    <VDialog v-bind="dialogProps" v-model="isOpen">
+    <VDialog v-bind="dialogProps" v-model="isOpen" @after-leave="props.destroy">
       <VCard v-bind="cardProps">
         <VCardTitle v-bind="cardTitleProps">
           {{ title }}

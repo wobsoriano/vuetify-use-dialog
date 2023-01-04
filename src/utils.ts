@@ -40,20 +40,24 @@ export interface SnackbarOptions {
 export function mount(component: Component, props: ConfirmDialogOptions | SnackbarOptions, app: App) {
   let el: HTMLElement | null = null
 
-  let vNode: VNode | null = createVNode(component, props as any)
+  function destroy() {
+    if (el)
+      render(null, el)
+    el = null
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    vNode = null
+  }
+
+  let vNode: VNode | null = createVNode(component, {
+    ...props,
+    destroy,
+  })
   if (app && app._context)
     vNode.appContext = app._context
   if (el)
     render(vNode, el)
   else if (typeof document !== 'undefined')
     render(vNode, el = document.createElement('div'))
-
-  const destroy = () => {
-    if (el)
-      render(null, el)
-    el = null
-    vNode = null
-  }
 
   if (import.meta.hot) {
     import.meta.hot.on('vite:beforeUpdate', () => {

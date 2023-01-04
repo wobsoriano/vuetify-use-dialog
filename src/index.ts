@@ -12,21 +12,16 @@ interface GlobalOptions {
 
 const plugin: Plugin = {
   install(app, globalOptions?: GlobalOptions) {
-    let unmountDialog: () => void
-    let unmountSnackbar: () => void
-
     const state = reactive<ConfirmDialogKeyValue['state']>({
       resolve: null,
       reject: null,
     })
 
     function mountDialog(options: ConfirmDialogOptions) {
-      unmountDialog?.()
-      const { destroy } = mount(ConfirmDialog, {
+      mount(ConfirmDialog, {
         ...globalOptions?.confirmDialog ?? {},
         ...options,
       }, app)
-      unmountDialog = destroy
       return new Promise((resolve, reject) => {
         state.resolve = resolve
         state.reject = reject
@@ -34,12 +29,10 @@ const plugin: Plugin = {
     }
 
     function mountSnackbar(options: SnackbarOptions) {
-      unmountSnackbar?.()
-      const { destroy } = mount(Snackbar, {
+      mount(Snackbar, {
         ...globalOptions?.snackbar ?? {},
         ...options,
       }, app)
-      unmountSnackbar = destroy
     }
 
     app.provide(ConfirmDialogKey, {

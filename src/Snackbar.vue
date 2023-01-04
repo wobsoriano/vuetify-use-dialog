@@ -2,7 +2,7 @@
 import { VBtn, VSnackbar, VThemeProvider } from 'vuetify/components'
 import { type Component, type PropType, ref } from 'vue'
 
-defineProps({
+const props = defineProps({
   text: {
     type: String,
     required: false,
@@ -36,6 +36,10 @@ defineProps({
     type: String,
     required: true,
   },
+  destroy: {
+    type: Function,
+    required: true,
+  },
 })
 
 const snackbar = ref(true)
@@ -43,7 +47,7 @@ const snackbar = ref(true)
 
 <template>
   <VThemeProvider :theme="theme">
-    <VSnackbar v-bind="snackbarProps" v-model="snackbar">
+    <VSnackbar v-bind="snackbarProps" v-model="snackbar" @after-leave="props.destroy">
       <template v-if="contentComponent">
         <Component :is="contentComponent" />
       </template>
