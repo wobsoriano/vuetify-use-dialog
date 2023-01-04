@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { VBtn, VCard, VCardActions, VCardText, VCardTitle, VDialog, VSpacer, VThemeProvider } from 'vuetify/components'
-import { type Component, type PropType, inject, ref } from 'vue'
+import { type Component, type PropType, computed, inject, onMounted, ref } from 'vue'
 import { ConfirmDialogKey } from './utils'
 
-defineProps({
+const props = defineProps({
   title: {
     type: String,
     required: false,
@@ -16,6 +16,10 @@ defineProps({
   },
   contentComponent: {
     type: Object as PropType<Component>,
+    required: false,
+  },
+  confirmationKeyword: {
+    type: String,
     required: false,
   },
   confirmationText: {
@@ -71,6 +75,8 @@ defineProps({
 
 const dialog = inject(ConfirmDialogKey)
 const isOpen = ref(true)
+const textFieldInput = ref<HTMLInputElement | null>(null)
+const textField = ref('')
 
 function confirm() {
   dialog?.state.resolve?.(undefined)
@@ -81,6 +87,17 @@ function cancel() {
   dialog?.state.reject?.(undefined)
   isOpen.value = false
 }
+
+onMounted(() => {
+  textFieldInput.value?.focus()
+})
+
+const confirmationButtonDisabled = computed(() => {
+  if (!props.confirmationKeyword)
+    return false
+
+  return props.confirmationKeyword !== textField.value
+})
 </script>
 
 <template>
@@ -94,17 +111,19 @@ function cancel() {
           <template v-if="contentComponent">
             <Component :is="contentComponent" />
           </template>
-          <template v-else>
-            <p>{{ content }}</p>
+          <template v-else-if="confirmationKeyword">
+            <VTextField ref="textFieldInput" v-model="textField" variant="underlined" />
           </template>
-        <!-- <VTextField label="Label" variant="underlined" /> -->
+          <template v-else>
+            {{ content }}
+          </template>
         </VCardText>
         <VCardActions v-bind="cardActionsProps">
           <VSpacer />
           <VBtn v-bind="cancellationButtonProps" @click="cancel">
             {{ cancellationText }}
           </VBtn>
-          <VBtn color="primary" v-bind="confirmationButtonProps" @click="confirm">
+          <VBtn color="primary" :disabled="confirmationButtonDisabled" v-bind="confirmationButtonProps" @click="confirm">
             {{ confirmationText }}
           </VBtn>
         </VCardActions>

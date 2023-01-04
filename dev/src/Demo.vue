@@ -11,6 +11,7 @@ async function removeItem(index: number) {
   try {
     await confirm({
       content: `This will permanently delete ${items.value[index]}`,
+      confirmationKeyword: 'Hello',
       dialogProps: {
         persistent: true,
         width: 400,

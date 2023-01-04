@@ -1,6 +1,6 @@
 import type { AllowedComponentProps, App, Component, InjectionKey, VNode, VNodeProps } from 'vue'
 import { createVNode, render } from 'vue'
-import type { VBtn, VCard, VCardActions, VCardText, VCardTitle, VDialog, VSnackbar } from 'vuetify/components'
+import type { VBtn, VCard, VCardActions, VCardText, VCardTitle, VDialog, VSnackbar, VTextField } from 'vuetify/components'
 
 type ExtractProps<TComponent> =
   TComponent extends new () => {
@@ -22,6 +22,8 @@ export interface ConfirmDialogOptions {
   cardActionsProps?: ExtractProps<typeof VCardActions>
   cancellationButtonProps?: ExtractProps<typeof VBtn>
   confirmationButtonProps?: ExtractProps<typeof VBtn>
+  confirmationKeyword?: string
+  confirmationKeywordTextFieldProps?: ExtractProps<typeof VTextField>
   theme?: string
 }
 
