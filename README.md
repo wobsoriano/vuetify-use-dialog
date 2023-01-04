@@ -86,6 +86,23 @@ async function handleConfirm() {
 | **`closeButtonText`**                       | `string` | `'Close'`              | Close button text 
 | **`closeButtonProps`**                       | `object`    | `{}`              | [VBtn](https://next.vuetifyjs.com/en/api/v-dialog/#props) props.                                                                                                                                                             |
 
+Global options:
+
+```ts
+app.use(confirmDialog, {
+  confirmDialog: {
+    // useConfirm options
+    title: 'Are you sure?'
+  },
+  snackbar: {
+    // useSnackbar options
+    snackbarProps: {
+      timeout: 2000,
+    }
+  }
+})
+```
+
 ## License
 
 MIT
