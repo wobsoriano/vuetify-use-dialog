@@ -61,7 +61,7 @@ function useSnackbar() {
 
   const theme = useTheme()
 
-  function confirm(options: SnackbarOptions) {
+  function toast(options: SnackbarOptions) {
     if (!dialog)
       throw new Error('Missing dialog instance')
 
@@ -71,7 +71,7 @@ function useSnackbar() {
     })
   }
 
-  return confirm
+  return toast
 }
 
 export {
