@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { VBtn, VCard, VCardActions, VCardText, VCardTitle, VDialog, VSpacer, VThemeProvider } from 'vuetify/components'
 import { type Component, type PropType, computed, inject, onMounted, ref } from 'vue'
-import { ConfirmDialogKey } from './utils'
+import { type ConfirmDialogKeyValue } from './utils'
 
 const props = defineProps({
   title: {
@@ -86,7 +86,7 @@ const props = defineProps({
   },
 })
 
-const dialog = inject(ConfirmDialogKey)
+const dialog = inject('ConfirmDialogKey') as ConfirmDialogKeyValue
 const isOpen = ref(true)
 const textFieldInput = ref<HTMLInputElement | null>(null)
 const textField = ref('')

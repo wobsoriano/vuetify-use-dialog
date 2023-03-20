@@ -4,7 +4,7 @@ import { useTheme } from 'vuetify'
 import { nanoid } from 'nanoid'
 import ConfirmDialog from './ConfirmDialog.vue'
 import Snackbar from './Snackbar.vue'
-import { ConfirmDialogKey, type ConfirmDialogKeyValue, type ConfirmDialogOptions, type SnackbarOptions, mount } from './utils'
+import { type ConfirmDialogKeyValue, type ConfirmDialogOptions, type SnackbarOptions, mount } from './utils'
 
 interface GlobalOptions {
   confirmDialog: ConfirmDialogOptions
@@ -39,7 +39,7 @@ const plugin: Plugin = {
       }, app)
     }
 
-    app.provide(ConfirmDialogKey, {
+    app.provide('ConfirmDialogKey', {
       mountDialog,
       mountSnackbar,
       state,
@@ -48,7 +48,7 @@ const plugin: Plugin = {
 }
 
 function useConfirm() {
-  const dialog = inject(ConfirmDialogKey)
+  const dialog = inject('ConfirmDialogKey') as ConfirmDialogKeyValue
   const theme = useTheme()
 
   function confirm(options: ConfirmDialogOptions) {
@@ -65,7 +65,7 @@ function useConfirm() {
 }
 
 function useSnackbar() {
-  const dialog = inject(ConfirmDialogKey)
+  const dialog = inject('ConfirmDialogKey') as ConfirmDialogKeyValue
 
   const theme = useTheme()
 

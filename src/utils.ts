@@ -1,4 +1,4 @@
-import type { AllowedComponentProps, App, Component, InjectionKey, VNode, VNodeProps } from 'vue'
+import type { AllowedComponentProps, App, Component, VNode, VNodeProps } from 'vue'
 import { createVNode, render } from 'vue'
 import type { VBtn, VCard, VCardActions, VCardText, VCardTitle, VDialog, VSnackbar, VTextField } from 'vuetify/components'
 
@@ -79,5 +79,3 @@ export interface ConfirmDialogKeyValue {
     }>
   }
 }
-
-export const ConfirmDialogKey = Symbol('ConfirmDialogKey') as InjectionKey<ConfirmDialogKeyValue>
