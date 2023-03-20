@@ -18,6 +18,10 @@ const props = defineProps({
     type: Object as PropType<Component>,
     required: false,
   },
+  contentComponentProps: {
+    type: Object,
+    required: false,
+  },
   confirmationKeyword: {
     type: String,
     required: false,
@@ -133,7 +137,7 @@ const finalDialogProps = computed(() => {
         </VCardTitle>
         <VCardText v-bind="cardTextProps">
           <template v-if="contentComponent">
-            <Component :is="contentComponent" />
+            <Component :is="contentComponent" v-bind="contentComponentProps" />
           </template>
           <template v-else-if="confirmationKeyword">
             <VTextField ref="textFieldInput" v-model="textField" v-bind="confirmationKeywordTextFieldProps" variant="underlined" />
