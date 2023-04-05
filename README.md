@@ -58,26 +58,7 @@ async function handleConfirm() {
 </template>
 ```
 
-or for Options API
-
-```vue
-<script lang="ts">
-export default defineComponent({
-  methods: {
-    async handleConfirm() {
-      const theme = 'dark'
-
-      const isConfirmed = await this.$confirm({ content: 'This action is permanent!', theme })
-
-      if (!isConfirmed)
-        return
-
-      this.$toast({ text: 'Confirmed', theme })
-    }
-  }
-})
-</script>
-```
+Check [this](https://github.com/wobsoriano/vuetify-use-dialog/issues/4) if you're using Options API.
 
 ## Options
 
