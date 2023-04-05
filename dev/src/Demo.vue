@@ -8,41 +8,41 @@ const toast = useSnackbar()
 const items = ref(['Vue', 'React', 'Solid', 'Angular', 'Svelte'])
 
 async function removeItem(index: number) {
-  try {
-    await confirm({
-      content: `This will permanently delete ${items.value[index]}`,
-      dialogProps: {
-        persistent: true,
-        width: 400,
-      },
-    })
+  const result = await confirm({
+    content: `This will permanently delete ${items.value[index]}`,
+    dialogProps: {
+      persistent: true,
+      width: 400,
+    },
+  })
+  
+  if (result) {
     items.value.splice(index, 1)
     toast({
       text: 'Item removed',
     })
   }
-  catch {}
 }
 
 async function clear() {
-  try {
-    await confirm({
-      title: 'Clear items',
-      confirmationKeyword: 'vuetify',
-      dialogProps: {
-        persistent: true,
-        width: 400,
-      },
-      confirmationKeywordTextFieldProps: {
-        label: 'Enter password (pw: vuetify)',
-      },
-    })
+  const result = await confirm({
+    title: 'Clear items',
+    confirmationKeyword: 'vuetify',
+    dialogProps: {
+      persistent: true,
+      width: 400,
+    },
+    confirmationKeywordTextFieldProps: {
+      label: 'Enter password (pw: vuetify)',
+    },
+  })
+
+  if (result) {
     items.value = []
     toast({
       text: 'List cleared',
     })
   }
-  catch {}
 }
 </script>
 

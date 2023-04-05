@@ -11,6 +11,8 @@ interface GlobalOptions {
   snackbar: SnackbarOptions
 }
 
+type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] }
+
 const plugin: Plugin = {
   install(app, globalOptions?: GlobalOptions) {
     const state = reactive<ConfirmDialogKeyValue['state']>({ promiseIds: new Map() })
@@ -44,6 +46,14 @@ const plugin: Plugin = {
       mountSnackbar,
       state,
     })
+
+    app.config.globalProperties.$confirm = (options: WithRequired<ConfirmDialogOptions, 'theme'>) => {
+      return mountDialog(options)
+    }
+
+    app.config.globalProperties.$toast = (options: WithRequired<SnackbarOptions, 'theme'>) => {
+      return mountSnackbar(options)
+    }
   },
 }
 
