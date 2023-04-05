@@ -2,7 +2,7 @@
   "name": "vuetify-use-dialog",
   "type": "module",
   "version": "0.3.0",
-  "packageManager": "pnpm@7.31.0",
+  "packageManager": "pnpm@8.1.1",
   "description": "",
   "author": "Robert Soriano <sorianorobertc@gmail.com>",
   "license": "MIT",
