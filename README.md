@@ -42,11 +42,10 @@ const createConfirm = useConfirm()
 const createSnackbar = useSnackbar()
 
 async function handleConfirm() {
-  try {
-    await createConfirm({ content: 'This action is permanent!' })
+  let isConfirmed = await createConfirm({ content: 'This action is permanent!' })
+  if (isConfirmed) {
     createSnackbar({ text: 'Confirmed' })
-  }
-  catch {
+  } else {
     createSnackbar({ text: 'Cancelled' })
   }
 }
