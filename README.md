@@ -58,6 +58,27 @@ async function handleConfirm() {
 </template>
 ```
 
+or for Options API
+
+```vue
+<script lang="ts">
+export default defineComponent({
+  methods: {
+    async handleConfirm() {
+      const theme = 'dark'
+
+      const isConfirmed = await this.$confirm({ content: 'This action is permanent!', theme })
+
+      if (!isConfirmed)
+        return
+
+      this.$toast({ text: 'Confirmed', theme })
+    }
+  }
+})
+</script>
+```
+
 ## Options
 
 ### `useConfirm`
