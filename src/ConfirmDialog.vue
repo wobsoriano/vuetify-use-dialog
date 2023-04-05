@@ -96,12 +96,12 @@ const textFieldInput = ref<HTMLInputElement | null>(null)
 const textField = ref('')
 
 function confirm() {
-  dialog?.state.promiseIds.get(props.promiseId)?.resolve?.(undefined)
+  dialog?.state.promiseIds.get(props.promiseId)?.resolve?.(true)
   isOpen.value = false
 }
 
 function cancel() {
-  dialog?.state.promiseIds.get(props.promiseId)?.reject?.(undefined)
+  dialog?.state.promiseIds.get(props.promiseId)?.resolve?.(false)
   isOpen.value = false
 }
 
