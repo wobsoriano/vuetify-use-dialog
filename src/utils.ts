@@ -11,8 +11,11 @@ type ExtractProps<TComponent> =
 
 export interface ConfirmDialogOptions {
   title?: string
+  titleComponent?: Component
+  titleComponentProps?: Record<string, any>
   content?: string
   contentComponent?: Component
+  contentComponentProps?: Record<string, any>
   confirmationText?: string
   cancellationText?: string
   dialogProps?: ExtractProps<typeof VDialog>

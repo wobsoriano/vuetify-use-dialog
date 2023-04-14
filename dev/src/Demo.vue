@@ -15,7 +15,7 @@ async function removeItem(index: number) {
       width: 400,
     },
   })
-  
+
   if (result) {
     items.value.splice(index, 1)
     toast({
