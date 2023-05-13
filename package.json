@@ -53,7 +53,7 @@
   },
   "peerDependencies": {
     "vue": "^3.2.0",
-    "vuetify": "^3.1.0"
+    "vuetify": "^3.2.0"
   },
   "dependencies": {
     "nanoid": "^4.0.2"
