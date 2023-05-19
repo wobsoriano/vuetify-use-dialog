@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { VBtn, VCard, VCardActions, VCardText, VCardTitle, VDialog, VSpacer, VThemeProvider } from 'vuetify/components'
+import { VBtn, VCard, VCardActions, VCardText, VDialog, VSpacer, VThemeProvider } from 'vuetify/components'
 import { type Component, type PropType, computed, inject, onMounted, ref } from 'vue'
 import { type ConfirmDialogKeyValue } from './utils'
 
@@ -8,6 +8,14 @@ const props = defineProps({
     type: String,
     required: false,
     default: 'Are you sure?',
+  },
+  titleComponent: {
+    type: Object as PropType<Component>,
+    required: false,
+  },
+  titleComponentProps: {
+    type: Object,
+    required: false,
   },
   content: {
     type: String,
@@ -132,16 +140,13 @@ const finalDialogProps = computed(() => {
   <VThemeProvider :theme="theme">
     <VDialog v-bind="finalDialogProps" v-model="isOpen">
       <VCard v-bind="cardProps">
-        <VCardTitle v-bind="cardTitleProps">
+        <component :is="titleComponent" v-if="titleComponent" v-bind="titleComponentProps" />
+        <VCardTitle v-else v-bind="cardTitleProps">
           {{ title }}
         </VCardTitle>
         <VCardText v-bind="cardTextProps">
-          <template v-if="contentComponent">
-            <Component :is="contentComponent" v-bind="contentComponentProps" />
-          </template>
-          <template v-else-if="confirmationKeyword">
-            <VTextField ref="textFieldInput" v-model="textField" v-bind="confirmationKeywordTextFieldProps" variant="underlined" />
-          </template>
+          <component :is="contentComponent" v-if="contentComponent" v-bind="contentComponentProps" />
+          <VTextField v-else-if="confirmationKeyword" ref="textFieldInput" v-model="textField" v-bind="confirmationKeywordTextFieldProps" variant="underlined" />
           <template v-else>
             {{ content }}
           </template>
