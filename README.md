@@ -111,6 +111,8 @@ app.use(VuetifyUseDialog, {
 })
 ```
 
+Looking for a stackable toast component? Check out [Vuetify Sonner](https://vuetify-sonner.vercel.app).
+
 ## License
 
 MIT
