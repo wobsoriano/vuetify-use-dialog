@@ -74,7 +74,7 @@ const props = defineProps({
     required: false,
     default: () => ({}),
   },
-  actionsComponent: {
+  actionsContentComponent: {
     type: Object as PropType<Component>,
     required: false,
   },
@@ -155,15 +155,17 @@ const finalDialogProps = computed(() => {
             {{ content }}
           </template>
         </VCardText>
-        <component :is="actionsComponent" v-if="actionsComponent" :confirmation-button-disabled="confirmationButtonDisabled" :confirm="confirm" />
-        <VCardActions v-else v-bind="cardActionsProps">
-          <VSpacer />
-          <VBtn v-bind="cancellationButtonProps" @click="cancel">
-            {{ cancellationText }}
-          </VBtn>
-          <VBtn color="primary" :disabled="confirmationButtonDisabled" v-bind="confirmationButtonProps" @click="confirm">
-            {{ confirmationText }}
-          </VBtn>
+        <VCardActions v-bind="cardActionsProps">
+          <component :is="actionsContentComponent" v-if="actionsContentComponent" :confirmation-button-disabled="confirmationButtonDisabled" :confirm="confirm" />
+          <template v-else>
+            <VSpacer />
+            <VBtn v-bind="cancellationButtonProps" @click="cancel">
+              {{ cancellationText }}
+            </VBtn>
+            <VBtn color="primary" :disabled="confirmationButtonDisabled" v-bind="confirmationButtonProps" @click="confirm">
+              {{ confirmationText }}
+            </VBtn>
+          </template>
         </VCardActions>
       </VCard>
     </VDialog>
