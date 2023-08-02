@@ -156,7 +156,7 @@ const finalDialogProps = computed(() => {
           </template>
         </VCardText>
         <VCardActions v-bind="cardActionsProps">
-          <component :is="actionsContentComponent" v-if="actionsContentComponent" :confirmation-button-disabled="confirmationButtonDisabled" :confirm="confirm" />
+          <component :is="actionsContentComponent" v-if="actionsContentComponent" :confirmation-button-disabled="confirmationButtonDisabled" :cancel="cancel" :confirm="confirm" />
           <template v-else>
             <VSpacer />
             <VBtn v-bind="cancellationButtonProps" @click="cancel">
