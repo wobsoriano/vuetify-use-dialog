@@ -83,6 +83,7 @@ Check [this](https://github.com/wobsoriano/vuetify-use-dialog/issues/4) if you'r
 | **`confirmationKeyword`**                  | `string` | `undefined`            | If provided the confirmation button will be disabled by default and an additional textfield will be rendered. The confirmation button will only be enabled when the contents of the textfield match the value of `confirmationKeyword`.                                                                                                                                    |
 | **`confirmationKeywordTextFieldProps`**                      | `object`    | `{}`              | [VTextField](https://next.vuetifyjs.com/en/api/v-text-field/#props) props for the confirmation keyword textfield.                                                                                                                                   |
 | **`cardActionsProps`**                      | `object`    | `{}`              | [VCardActions](https://next.vuetifyjs.com/en/api/v-card-actions/#props) props.                                                                                                                                   |
+| **`actionsContentComponent`**                      | `object`    | `{}`              | Custom actions content component.                                                                                                                                   |
 
 
 ### `useSnackbar`
