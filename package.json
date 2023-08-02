@@ -2,7 +2,7 @@
   "name": "vuetify-use-dialog",
   "type": "module",
   "version": "0.6.0",
-  "packageManager": "pnpm@8.5.1",
+  "packageManager": "pnpm@8.6.11",
   "description": "",
   "author": "Robert Soriano <sorianorobertc@gmail.com>",
   "license": "MIT",
@@ -59,18 +59,18 @@
     "nanoid": "^4.0.2"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.39.0",
+    "@antfu/eslint-config": "^0.40.0",
     "@mdi/font": "^7.2.96",
-    "@types/node": "^18.16.13",
+    "@types/node": "^18.17.1",
     "@vitejs/plugin-vue": "^4.2.3",
-    "bumpp": "^9.1.0",
-    "eslint": "^8.40.0",
+    "bumpp": "^9.1.1",
+    "eslint": "^8.46.0",
     "roboto-fontface": "^0.10.0",
-    "typescript": "^5.0.4",
+    "typescript": "^5.1.6",
     "unbuild": "^1.2.1",
-    "vite": "^4.3.8",
+    "vite": "^4.4.8",
     "vite-plugin-vuetify": "^1.0.2",
     "vue": "^3.3.4",
-    "vuetify": "^3.3.0"
+    "vuetify": "^3.3.11"
   }
 }
