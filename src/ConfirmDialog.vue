@@ -74,6 +74,10 @@ const props = defineProps({
     required: false,
     default: () => ({}),
   },
+  actionsComponent: {
+    type: Object as PropType<Component>,
+    required: false,
+  },
   cancellationButtonProps: {
     type: Object,
     required: false,
@@ -151,7 +155,8 @@ const finalDialogProps = computed(() => {
             {{ content }}
           </template>
         </VCardText>
-        <VCardActions v-bind="cardActionsProps">
+        <component :is="actionsComponent" v-if="actionsComponent" :confirmation-button-disabled="confirmationButtonDisabled" :confirm="confirm" />
+        <VCardActions v-else v-bind="cardActionsProps">
           <VSpacer />
           <VBtn v-bind="cancellationButtonProps" @click="cancel">
             {{ cancellationText }}
