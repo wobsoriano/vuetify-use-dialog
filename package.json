@@ -48,7 +48,7 @@
     "dev:preview": "vite preview dev",
     "lint": "eslint .",
     "prepublishOnly": "pnpm build",
-    "release": "bumpp && npm publish"
+    "release": "changelogen --release && npm publish && git push --follow-tags"
   },
   "peerDependencies": {
     "vue": "^3.2.0",
@@ -63,7 +63,7 @@
     "@mdi/font": "^7.2.96",
     "@types/node": "^18.17.1",
     "@vitejs/plugin-vue": "^4.5.2",
-    "bumpp": "^9.1.1",
+    "changelogen": "^0.5.5",
     "eslint": "^8.46.0",
     "roboto-fontface": "^0.10.0",
     "typescript": "^5.3.3",
