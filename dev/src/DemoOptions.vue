@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   data: () => ({
@@ -19,7 +19,7 @@ export default defineComponent({
           label: 'Enter password (pw: vuetify)',
         },
       })
-      
+
       if (result) {
         this.items = []
         // @ts-expect-error: TODO
@@ -37,7 +37,7 @@ export default defineComponent({
           width: 400,
         },
       })
-      
+
       if (result) {
         this.items.splice(index, 1)
         // @ts-expect-error: TODO
@@ -45,8 +45,8 @@ export default defineComponent({
           text: 'Item removed',
         })
       }
-    }
-  }
+    },
+  },
 })
 </script>
 

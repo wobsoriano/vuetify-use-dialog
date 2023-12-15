@@ -27,6 +27,7 @@ async function removeItem(index: number) {
 async function clear() {
   const result = await confirm({
     title: 'Clear items',
+    content: 'This will permanently clear all items',
     confirmationKeyword: 'vuetify',
     dialogProps: {
       persistent: true,
