@@ -35,8 +35,8 @@ export interface SnackbarOptions {
   contentComponent?: Component
   snackbarProps?: ExtractProps<typeof VSnackbar>
   showCloseButton?: boolean
-  closeButtonProps?: ExtractProps<typeof VBtn>
-  closeButtonText?: string
+  actionButtonProps?: ExtractProps<typeof VBtn>
+  actionButtonText?: string
   theme?: string
 }
 

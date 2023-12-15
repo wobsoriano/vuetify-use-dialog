@@ -43,8 +43,8 @@ async function clear() {
     items.value = []
     toast({
       text: 'List cleared',
-      closeButtonText: 'Undo',
-      closeButtonProps: {
+      actionButtonText: 'Undo',
+      actionButtonProps: {
         // @ts-expect-error: TODO
         onClick() {
           items.value = originalItems
