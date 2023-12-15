@@ -150,9 +150,11 @@ const finalDialogProps = computed(() => {
         </VCardTitle>
         <VCardText v-bind="cardTextProps">
           <component :is="contentComponent" v-if="contentComponent" v-bind="contentComponentProps" />
-          <VTextField v-else-if="confirmationKeyword" ref="textFieldInput" v-model="textField" v-bind="confirmationKeywordTextFieldProps" variant="underlined" />
           <template v-else>
-            {{ content }}
+            <template v-if="content">
+              {{ content }}
+            </template>
+            <VTextField v-if="confirmationKeyword" ref="textFieldInput" v-model="textField" v-bind="confirmationKeywordTextFieldProps" variant="underlined" />
           </template>
         </VCardText>
         <VCardActions v-bind="cardActionsProps">
