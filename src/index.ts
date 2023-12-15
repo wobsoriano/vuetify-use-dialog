@@ -2,6 +2,7 @@ import type { Plugin } from 'vue'
 import { inject, reactive } from 'vue'
 import { useTheme } from 'vuetify'
 import { nanoid } from 'nanoid'
+import { defu } from 'defu'
 import ConfirmDialog from './ConfirmDialog.vue'
 import Snackbar from './Snackbar.vue'
 import { type ConfirmDialogKeyValue, type ConfirmDialogOptions, type SnackbarOptions, mount } from './utils'
@@ -21,8 +22,7 @@ const plugin: Plugin = {
       const promiseId = nanoid()
 
       mount(ConfirmDialog, {
-        ...globalOptions?.confirmDialog ?? {},
-        ...options,
+        ...defu(options, globalOptions?.confirmDialog ?? {}),
         promiseId,
       }, app)
 
@@ -36,8 +36,7 @@ const plugin: Plugin = {
 
     function mountSnackbar(options: SnackbarOptions) {
       mount(Snackbar, {
-        ...globalOptions?.snackbar ?? {},
-        ...options,
+        ...defu(options, globalOptions?.snackbar ?? {}),
       }, app)
     }
 
