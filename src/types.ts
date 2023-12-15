@@ -1,5 +1,4 @@
-import type { AllowedComponentProps, App, Component, VNode, VNodeProps } from 'vue'
-import { createVNode, render } from 'vue'
+import type { AllowedComponentProps, Component, InjectionKey, VNodeProps } from 'vue'
 import type { VBtn, VCard, VCardActions, VCardText, VCardTitle, VDialog, VSnackbar, VTextField } from 'vuetify/components'
 
 type ExtractProps<TComponent> =
@@ -40,45 +39,17 @@ export interface SnackbarOptions {
   theme?: string
 }
 
-export function mount(component: Component, props: ConfirmDialogOptions & { promiseId: string } | SnackbarOptions, app: App) {
-  let el: HTMLElement | null = null
+export type ConfirmDialogValue = Map<string, {
+  resolve: (value: unknown) => void
+  reject: (value: unknown) => void
+  options: ConfirmDialogOptions
+}>
 
-  function destroy() {
-    if (el)
-      render(null, el)
-    el = null
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    vNode = null
-  }
+export type SnackbarValue = Map<string, SnackbarOptions>
 
-  let vNode: VNode | null = createVNode(component, {
-    ...props,
-    destroy,
-  })
-  if (app && app._context)
-    vNode.appContext = app._context
-  if (el)
-    render(vNode, el)
-  else if (typeof document !== 'undefined')
-    render(vNode, el = document.createElement('div'))
-
-  // TODO: Remount with correct theme
-  // if (import.meta.hot) {
-  //   import.meta.hot.on('vite:beforeUpdate', () => {
-  //     destroy()
-  //   })
-  // }
-
-  return { vNode, destroy, el }
-}
-
-export interface ConfirmDialogKeyValue {
-  mountDialog: (options: ConfirmDialogOptions) => Promise<undefined>
-  mountSnackbar: (options: SnackbarOptions) => void
-  state: {
-    'promiseIds': Map<string, {
-      resolve: ((value: unknown) => void)
-      reject: ((value: unknown) => void)
-    }>
-  }
-}
+export const VUseDialogInjectionKey = Symbol('Plugin provider key') as InjectionKey<{
+  dialogs: ConfirmDialogValue
+  snackbars: SnackbarValue
+  createConfirm: (options: ConfirmDialogOptions) => Promise<boolean>
+  createSnackbar: (options: SnackbarOptions) => void
+}>

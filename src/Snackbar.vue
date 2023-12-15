@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { VBtn, VSnackbar, VThemeProvider } from 'vuetify/components'
-import { type Component, type PropType, computed, ref } from 'vue'
+import { VBtn, VSnackbar } from 'vuetify/components'
+import { type Component, type PropType, computed, inject, ref } from 'vue'
+import type { SnackbarValue } from './types'
+import { VuetifyUseDialogKey } from './providerKeys'
 
 const props = defineProps({
   text: {
@@ -32,15 +34,13 @@ const props = defineProps({
     required: false,
     default: 'Close',
   },
-  theme: {
+  promiseId: {
     type: String,
     required: true,
   },
-  destroy: {
-    type: Function,
-    required: true,
-  },
 })
+
+const state = inject<{ snackbars: SnackbarValue }>(VuetifyUseDialogKey)
 
 const snackbar = ref(true)
 
@@ -49,26 +49,24 @@ const finalSnackbarProps = computed(() => {
     ...props.snackbarProps,
     onAfterLeave() {
       props.snackbarProps.onAfterLeave?.()
-      props.destroy()
+      state?.snackbars.delete(props.promiseId)
     },
   }
 })
 </script>
 
 <template>
-  <VThemeProvider :theme="theme">
-    <VSnackbar v-bind="finalSnackbarProps" v-model="snackbar">
-      <template v-if="contentComponent">
-        <Component :is="contentComponent" />
-      </template>
-      <template v-else>
-        {{ text }}
-      </template>
-      <template v-if="showCloseButton" #actions>
-        <VBtn v-bind="actionButtonProps" variant="text" @click="snackbar = false">
-          {{ actionButtonText }}
-        </VBtn>
-      </template>
-    </VSnackbar>
-  </VThemeProvider>
+  <VSnackbar v-bind="finalSnackbarProps" v-model="snackbar">
+    <template v-if="contentComponent">
+      <Component :is="contentComponent" />
+    </template>
+    <template v-else>
+      {{ text }}
+    </template>
+    <template v-if="showCloseButton" #actions>
+      <VBtn v-bind="actionButtonProps" variant="text" @click="snackbar = false">
+        {{ actionButtonText }}
+      </VBtn>
+    </template>
+  </VSnackbar>
 </template>
