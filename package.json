@@ -23,19 +23,18 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
     }
   },
-  "main": "./dist/index.mjs",
+  "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
       "*": [
-        "*",
-        "dist/*",
-        "dist/*.d.ts",
-        "dist/*/index.d.ts"
+        "./dist/*",
+        "./*"
       ]
     }
   },
@@ -56,21 +55,21 @@
     "vuetify": "^3.3.0"
   },
   "dependencies": {
-    "nanoid": "^4.0.2"
+    "nanoid": "^5.0.4"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.40.0",
     "@mdi/font": "^7.2.96",
     "@types/node": "^18.17.1",
-    "@vitejs/plugin-vue": "^4.2.3",
+    "@vitejs/plugin-vue": "^4.5.2",
     "bumpp": "^9.1.1",
     "eslint": "^8.46.0",
     "roboto-fontface": "^0.10.0",
-    "typescript": "^5.1.6",
-    "unbuild": "^1.2.1",
-    "vite": "^4.4.8",
-    "vite-plugin-vuetify": "^1.0.2",
-    "vue": "^3.3.4",
-    "vuetify": "^3.3.11"
+    "typescript": "^5.3.3",
+    "unbuild": "^2.0.0",
+    "vite": "^5.0.9",
+    "vite-plugin-vuetify": "^2.0.1",
+    "vue": "^3.3.11",
+    "vuetify": "^3.4.7"
   }
 }
