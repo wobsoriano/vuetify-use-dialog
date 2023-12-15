@@ -5,7 +5,8 @@ import { useConfirm, useSnackbar } from 'vuetify-use-dialog'
 const confirm = useConfirm()
 const toast = useSnackbar()
 
-const items = ref(['Vue', 'React', 'Solid', 'Angular', 'Svelte'])
+const originalItems = ['Vue', 'React', 'Solid', 'Angular', 'Svelte']
+const items = ref(originalItems)
 
 async function removeItem(index: number) {
   const result = await confirm({
@@ -42,6 +43,13 @@ async function clear() {
     items.value = []
     toast({
       text: 'List cleared',
+      closeButtonText: 'Undo',
+      closeButtonProps: {
+        // @ts-expect-error: TODO
+        onClick() {
+          items.value = originalItems
+        },
+      },
     })
   }
 }
