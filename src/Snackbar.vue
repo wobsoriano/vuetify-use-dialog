@@ -22,7 +22,7 @@ const props = defineProps({
     required: false,
     default: true,
   },
-  closeButtonProps: {
+  actionButtonProps: {
     type: Object,
     required: false,
     default: () => ({}),
@@ -65,7 +65,7 @@ const finalSnackbarProps = computed(() => {
         {{ text }}
       </template>
       <template v-if="showCloseButton" #actions>
-        <VBtn v-bind="closeButtonProps" variant="text" @click="snackbar = false">
+        <VBtn v-bind="actionButtonProps" variant="text" @click="snackbar = false">
           {{ closeButtonText }}
         </VBtn>
       </template>
