@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { VBtn, VCard, VCardActions, VCardText, VDialog, VSpacer, VThemeProvider } from 'vuetify/components'
 import { type Component, type PropType, computed, inject, onMounted, ref } from 'vue'
-import { type ConfirmDialogKeyValue } from './utils'
+import type { ConfirmDialogKeyValue } from './utils'
 
 const props = defineProps({
   title: {
