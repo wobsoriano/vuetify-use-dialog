@@ -85,7 +85,6 @@ Check [this](https://github.com/wobsoriano/vuetify-use-dialog/issues/4) if you'r
 | **`cardActionsProps`**                      | `object`    | `{}`              | [VCardActions](https://next.vuetifyjs.com/en/api/v-card-actions/#props) props.                                                                                                                                   |
 | **`actionsContentComponent`**                      | `Component`    | `{}`              | Custom actions content component.                                                                                                                                   |
 
-
 ### `useSnackbar`
 
 | Name                                    | Type        | Default           | Description                                                                                                                                                                                                                            |
@@ -93,7 +92,7 @@ Check [this](https://github.com/wobsoriano/vuetify-use-dialog/issues/4) if you'r
 | **`text`**                             | `string` | `''` | Snackbar text.                                                                                                                                                              |
 | **`snackbarProps`**                       | `object`    | `{}`              | [VSnackbar](https://next.vuetifyjs.com/en/api/v-snackbar/#props) props.                                                                                                                                                             |
 | **`showCloseButton`**                       | `boolean` | `true`              | Show the close button.
-| **`closeButtonText`**                       | `string` | `'Close'`              | Close button text 
+| **`closeButtonText`**                       | `string` | `'Close'`              | Close button text
 | **`closeButtonProps`**                       | `object`    | `{}`              | [VBtn](https://next.vuetifyjs.com/en/api/v-btn/#props) props.                                                                                                                                                             |
 
 Global options:
