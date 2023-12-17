@@ -2,7 +2,7 @@
 
 > Confirming user choice is a good thing to do, it should also be easy to do.
 
-Simple confirmation dialog and snackbar composable built on top of [Vuetify](https://next.vuetifyjs.com).
+A module that simplifies the creation of dialogs and snackbars in [Vuetify](https://next.vuetifyjs.com).
 
 Demo: https://vuetify-use-dialog.vercel.app
 
