@@ -17,11 +17,12 @@ export default defineConfig(({ mode }) => {
         fileName: 'vuetify-use-dialog',
       },
       rollupOptions: {
-        external: ['vue', /vuetify\/.+/],
+        external: ['vue', 'vuetify', /vuetify\/.+/],
         output: {
           exports: 'named',
           globals: {
             vue: 'Vue',
+            vuetify: 'Vuetify'
           },
         },
       },
