@@ -62,12 +62,12 @@ export function mount(component: Component, props: ConfirmDialogOptions & { prom
   else if (typeof document !== 'undefined')
     render(vNode, el = document.createElement('div'))
 
-  // TODO: Remount with correct theme
-  // if (import.meta.hot) {
-  //   import.meta.hot.on('vite:beforeUpdate', () => {
-  //     destroy()
-  //   })
-  // }
+  if (import.meta.hot) {
+    import.meta.hot.on('vite:beforeUpdate', () => {
+      // TODO: Remount with correct theme
+      destroy()
+    })
+  }
 
   return { vNode, destroy, el }
 }
