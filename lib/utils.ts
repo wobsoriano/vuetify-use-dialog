@@ -49,7 +49,7 @@ export function mount(component: Component, props: ConfirmDialogOptions & { prom
     el = null
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     vNode = null
-  }
+  }   
 
   let vNode: VNode | null = createVNode(component, {
     ...props,
@@ -62,12 +62,12 @@ export function mount(component: Component, props: ConfirmDialogOptions & { prom
   else if (typeof document !== 'undefined')
     render(vNode, el = document.createElement('div'))
 
-  if (import.meta.hot) {
-    import.meta.hot.on('vite:beforeUpdate', () => {
-      // TODO: Remount with correct theme
-      destroy()
-    })
-  }
+  function hotUpdateListener() {
+    import.meta.hot?.off('vite:beforeUpdate', hotUpdateListener);
+    destroy();
+  }; 
+
+  import.meta.hot?.on('vite:beforeUpdate', hotUpdateListener)
 
   return { vNode, destroy, el }
 }
