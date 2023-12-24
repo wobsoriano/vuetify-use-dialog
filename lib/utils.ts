@@ -64,6 +64,7 @@ export function mount(component: Component, props: ConfirmDialogOptions & { prom
 
   function hotUpdateListener() {
     import.meta.hot?.off('vite:beforeUpdate', hotUpdateListener);
+    // TODO: Instead of destroying the component, we should update the theme and content?
     destroy();
   }; 
 
