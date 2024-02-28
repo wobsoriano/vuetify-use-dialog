@@ -55,8 +55,7 @@
     "vuetify": "^3.3.0"
   },
   "dependencies": {
-    "defu": "^6.1.4",
-    "nanoid": "^5.0.6"
+    "defu": "^6.1.4"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.6.4",

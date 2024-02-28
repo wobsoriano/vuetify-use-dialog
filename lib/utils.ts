@@ -1,5 +1,5 @@
 import type { AllowedComponentProps, App, Component, VNode, VNodeProps } from 'vue'
-import { createVNode, nextTick, render } from 'vue'
+import { createVNode, render } from 'vue'
 import type { VBtn, VCard, VCardActions, VCardText, VCardTitle, VDialog, VSnackbar, VTextField } from 'vuetify/components'
 
 type ExtractProps<TComponent> =
@@ -28,6 +28,10 @@ export interface ConfirmDialogOptions {
   confirmationKeyword?: string
   confirmationKeywordTextFieldProps?: ExtractProps<typeof VTextField>
   theme?: string
+  /**
+   * @internal
+   */
+  resolve?: (value: boolean) => void
 }
 
 export interface SnackbarOptions {
@@ -38,19 +42,26 @@ export interface SnackbarOptions {
   closeButtonProps?: ExtractProps<typeof VBtn>
   closeButtonText?: string
   theme?: string
+  /**
+   * @internal
+   */
+  onClose?: () => void
 }
 
-export function mount(component: Component, props: ConfirmDialogOptions & { promiseId: string } | SnackbarOptions, app: App) {
+export function mount(component: Component, props: ConfirmDialogOptions & { promiseId: string } | SnackbarOptions, app: App, el?: HTMLDivElement) {
   const vNode: VNode | null = createVNode(component, {
     ...props,
-    destroy() {
-      render(null, app._container.firstElementChild)
-    }
   })
   if (app && app._context)
     vNode.appContext = app._context
 
-  render(vNode, app._container.firstElementChild)
+  if (el) {
+    app._container.appendChild(el)
+    render(vNode, el)
+  }
+  else {
+    render(vNode, app._container.firstElementChild)
+  }
 
   return { vNode }
 }
@@ -59,7 +70,7 @@ export interface ConfirmDialogKeyValue {
   mountDialog: (options: ConfirmDialogOptions) => Promise<undefined>
   mountSnackbar: (options: SnackbarOptions) => void
   state: {
-    'promiseIds': Map<string, {
+    promiseIds: Map<string, {
       resolve: ((value: unknown) => void)
       reject: ((value: unknown) => void)
     }>

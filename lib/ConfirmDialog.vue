@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { VBtn, VCard, VCardActions, VCardText, VDialog, VSpacer, VThemeProvider } from 'vuetify/components'
-import { type Component, type PropType, computed, inject, onMounted, ref } from 'vue'
-import type { ConfirmDialogKeyValue } from './utils'
+import { type Component, type PropType, computed, onMounted, ref } from 'vue'
 
 const props = defineProps({
   title: {
@@ -92,28 +91,23 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  destroy: {
-    type: Function,
-    required: true,
-  },
-  promiseId: {
-    type: String,
+  resolve: {
+    type: Function as PropType<(value: boolean) => void>,
     required: true,
   },
 })
 
-const dialog = inject('ConfirmDialogKey') as ConfirmDialogKeyValue
 const isOpen = ref(true)
 const textFieldInput = ref<HTMLInputElement | null>(null)
 const textField = ref('')
 
 function confirm() {
-  dialog?.state.promiseIds.get(props.promiseId)?.resolve?.(true)
+  props.resolve(true)
   isOpen.value = false
 }
 
 function cancel() {
-  dialog?.state.promiseIds.get(props.promiseId)?.resolve?.(false)
+  props.resolve(false)
   isOpen.value = false
 }
 
@@ -127,22 +121,11 @@ const confirmationButtonDisabled = computed(() => {
 
   return props.confirmationKeyword !== textField.value
 })
-
-const finalDialogProps = computed(() => {
-  return {
-    ...props.dialogProps,
-    onAfterLeave() {
-      props.dialogProps.onAfterLeave?.()
-      dialog?.state.promiseIds.delete(props.promiseId)
-      props.destroy()
-    },
-  }
-})
 </script>
 
 <template>
   <VThemeProvider :theme="theme">
-    <VDialog v-bind="finalDialogProps" v-model="isOpen">
+    <VDialog v-bind="dialogProps" v-model="isOpen">
       <VCard v-bind="cardProps">
         <component :is="titleComponent" v-if="titleComponent" v-bind="titleComponentProps" />
         <VCardTitle v-else v-bind="cardTitleProps">

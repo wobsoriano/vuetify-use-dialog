@@ -36,11 +36,9 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  destroy: {
-    type: Function,
-    required: true,
-  },
 })
+
+const emit = defineEmits(['close'])
 
 const snackbar = ref(true)
 
@@ -49,7 +47,7 @@ const finalSnackbarProps = computed(() => {
     ...props.snackbarProps,
     onAfterLeave() {
       props.snackbarProps.onAfterLeave?.()
-      props.destroy()
+      emit('close')
     },
   }
 })
