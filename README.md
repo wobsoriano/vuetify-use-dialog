@@ -4,7 +4,7 @@
 
 A module that simplifies the creation of dialogs and snackbars in [Vuetify](https://next.vuetifyjs.com).
 
-Demo: https://vuetify-use-dialog.vercel.app
+Demo: [StackBlitz](https://stackblitz.com/edit/vitejs-vite-mp6ajx?file=src%2Fcomponents%2FDemo.vue)
 
 ## Installation
 
