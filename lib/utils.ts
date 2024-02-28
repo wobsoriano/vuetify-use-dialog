@@ -28,6 +28,10 @@ export interface ConfirmDialogOptions {
   confirmationKeyword?: string
   confirmationKeywordTextFieldProps?: ExtractProps<typeof VTextField>
   theme?: string
+  /**
+   * @internal
+   */
+  resolve?: (value: boolean) => void
 }
 
 export interface SnackbarOptions {
@@ -38,46 +42,35 @@ export interface SnackbarOptions {
   closeButtonProps?: ExtractProps<typeof VBtn>
   closeButtonText?: string
   theme?: string
+  /**
+   * @internal
+   */
+  onClose?: () => void
 }
 
-export function mount(component: Component, props: ConfirmDialogOptions & { promiseId: string } | SnackbarOptions, app: App) {
-  let el: HTMLElement | null = null
-
-  function destroy() {
-    if (el)
-      render(null, el)
-    el = null
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    vNode = null
-  }   
-
-  let vNode: VNode | null = createVNode(component, {
+export function mount(component: Component, props: ConfirmDialogOptions & { promiseId: string } | SnackbarOptions, app: App, el?: HTMLDivElement) {
+  const vNode: VNode | null = createVNode(component, {
     ...props,
-    destroy,
   })
   if (app && app._context)
     vNode.appContext = app._context
-  if (el)
+
+  if (el) {
+    app._container.appendChild(el)
     render(vNode, el)
-  else if (typeof document !== 'undefined')
-    render(vNode, el = document.createElement('div'))
+  }
+  else {
+    render(vNode, app._container.firstElementChild)
+  }
 
-  function hotUpdateListener() {
-    import.meta.hot?.off('vite:beforeUpdate', hotUpdateListener);
-    // TODO: Instead of destroying the component, we should update the theme and content?
-    destroy();
-  }; 
-
-  import.meta.hot?.on('vite:beforeUpdate', hotUpdateListener)
-
-  return { vNode, destroy, el }
+  return { vNode }
 }
 
 export interface ConfirmDialogKeyValue {
   mountDialog: (options: ConfirmDialogOptions) => Promise<undefined>
   mountSnackbar: (options: SnackbarOptions) => void
   state: {
-    'promiseIds': Map<string, {
+    promiseIds: Map<string, {
       resolve: ((value: unknown) => void)
       reject: ((value: unknown) => void)
     }>

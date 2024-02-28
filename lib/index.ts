@@ -1,7 +1,6 @@
 import type { Plugin } from 'vue'
-import { inject, reactive } from 'vue'
+import { inject, render } from 'vue'
 import { useTheme } from 'vuetify'
-import { nanoid } from 'nanoid'
 import { defu } from 'defu'
 import ConfirmDialog from './ConfirmDialog.vue'
 import Snackbar from './Snackbar.vue'
@@ -16,41 +15,44 @@ type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] }
 
 const plugin: Plugin = {
   install(app, globalOptions?: GlobalOptions) {
-    const state = reactive<ConfirmDialogKeyValue['state']>({ promiseIds: new Map() })
-
     function mountDialog(options: ConfirmDialogOptions) {
-      const promiseId = nanoid()
+      return new Promise<boolean>((resolve) => {
+        return new Promise<boolean>((_resolve) => {
+          mount(ConfirmDialog, {
+            ...defu(options, globalOptions?.confirmDialog ?? {}),
+            resolve: _resolve,
+          }, app)
+        }).then((value) => {
+          setTimeout(() => {
+            render(null, app._container.firstElementChild)
+          }, 150)
 
-      mount(ConfirmDialog, {
-        ...defu(options, globalOptions?.confirmDialog ?? {}),
-        promiseId,
-      }, app)
-
-      return new Promise((resolve, reject) => {
-        state.promiseIds.set(promiseId, {
-          resolve,
-          reject,
+          resolve(value)
         })
       })
     }
 
     function mountSnackbar(options: SnackbarOptions) {
+      const mountEl = document.createElement('div')
       mount(Snackbar, {
         ...defu(options, globalOptions?.snackbar ?? {}),
-      }, app)
+        onClose() {
+          app._container.removeChild(mountEl)
+          render(null, mountEl)
+        },
+      }, app, mountEl)
     }
 
     app.provide('ConfirmDialogKey', {
       mountDialog,
       mountSnackbar,
-      state,
     })
 
-    app.config.globalProperties.$confirm = (options: WithRequired<ConfirmDialogOptions, 'theme'>) => {
+    app.config.globalProperties.$confirm = (options: WithRequired<ConfirmDialogOptions, 'theme' | 'resolve'>) => {
       return mountDialog(options)
     }
 
-    app.config.globalProperties.$toast = (options: WithRequired<SnackbarOptions, 'theme'>) => {
+    app.config.globalProperties.$toast = (options: WithRequired<SnackbarOptions, 'theme' | 'onClose'>) => {
       return mountSnackbar(options)
     }
   },
