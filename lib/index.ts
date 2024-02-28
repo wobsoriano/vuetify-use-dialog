@@ -1,4 +1,4 @@
-import type { Plugin } from 'vue'
+import type { App, Plugin } from 'vue'
 import { inject, reactive } from 'vue'
 import { useTheme } from 'vuetify'
 import { nanoid } from 'nanoid'

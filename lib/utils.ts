@@ -1,5 +1,5 @@
 import type { AllowedComponentProps, App, Component, VNode, VNodeProps } from 'vue'
-import { createVNode, render } from 'vue'
+import { createVNode, nextTick, render } from 'vue'
 import type { VBtn, VCard, VCardActions, VCardText, VCardTitle, VDialog, VSnackbar, VTextField } from 'vuetify/components'
 
 type ExtractProps<TComponent> =
@@ -41,36 +41,18 @@ export interface SnackbarOptions {
 }
 
 export function mount(component: Component, props: ConfirmDialogOptions & { promiseId: string } | SnackbarOptions, app: App) {
-  let el: HTMLElement | null = null
-
-  function destroy() {
-    if (el)
-      render(null, el)
-    el = null
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    vNode = null
-  }   
-
-  let vNode: VNode | null = createVNode(component, {
+  const vNode: VNode | null = createVNode(component, {
     ...props,
-    destroy,
+    destroy() {
+      render(null, app._container.firstElementChild)
+    }
   })
   if (app && app._context)
     vNode.appContext = app._context
-  if (el)
-    render(vNode, el)
-  else if (typeof document !== 'undefined')
-    render(vNode, el = document.createElement('div'))
 
-  function hotUpdateListener() {
-    import.meta.hot?.off('vite:beforeUpdate', hotUpdateListener);
-    // TODO: Instead of destroying the component, we should update the theme and content?
-    destroy();
-  }; 
+  render(vNode, app._container.firstElementChild)
 
-  import.meta.hot?.on('vite:beforeUpdate', hotUpdateListener)
-
-  return { vNode, destroy, el }
+  return { vNode }
 }
 
 export interface ConfirmDialogKeyValue {
