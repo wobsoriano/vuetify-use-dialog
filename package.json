@@ -55,7 +55,7 @@
     "vuetify": "^3.3.0"
   },
   "dependencies": {
-    "defu": "^6.1.3",
+    "defu": "^6.1.4",
     "nanoid": "^5.0.4"
   },
   "devDependencies": {
