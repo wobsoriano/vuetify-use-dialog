@@ -1,4 +1,4 @@
-name: '🐛 Bug report'
+name: 'Bug report'
 description: Report an issue with vuetify-use-dialog
 labels: ['type: bug']
 body:
