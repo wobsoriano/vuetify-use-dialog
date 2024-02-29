@@ -25,6 +25,21 @@ body:
             https://stackblitz.com/edit/vitejs-vite-yktyla
       validations:
           required: true
+    - type: textarea
+      id: logs
+      attributes:
+          label: Logs
+          description: 'Please include browser console and server logs around the time this bug occurred. Optional if provided reproduction. Please try not to insert an image but copy paste the log text.'
+          render: bash
+    - type: textarea
+      id: system-info
+      attributes:
+          label: System Info
+          description: Output of `npx envinfo --system --npmPackages vue,vuetify --binaries --browsers`
+          render: bash
+          placeholder: System, Binaries, Browsers
+      validations:
+          required: true
     - type: dropdown
       id: severity
       attributes:
