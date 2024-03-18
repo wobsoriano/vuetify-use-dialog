@@ -23,10 +23,7 @@ const plugin: Plugin = {
             resolve: _resolve,
           }, app)
         }).then((value) => {
-          setTimeout(() => {
-            render(null, app._container.firstElementChild)
-          }, 150)
-
+          render(null, app._container.firstElementChild)
           resolve(value)
         })
       })
