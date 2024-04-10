@@ -100,7 +100,7 @@ const props = defineProps({
 const isOpen = ref(true)
 const textFieldInput = ref<HTMLInputElement | null>(null)
 const textField = ref('')
-let isConfirmed: boolean
+let isConfirmed = false
 
 function confirm() {
   isConfirmed = true
