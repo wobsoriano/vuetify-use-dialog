@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { VBtn, VCard, VCardActions, VCardText, VDialog, VSpacer, VThemeProvider } from 'vuetify/components'
-import { type Component, type PropType, computed, onMounted, ref } from 'vue'
+import { type Component, type PropType, computed, nextTick, onMounted, ref } from 'vue'
 
 const props = defineProps({
   title: {
@@ -121,11 +121,19 @@ const confirmationButtonDisabled = computed(() => {
 
   return props.confirmationKeyword !== textField.value
 })
+
+function resolveIfHidden(v: boolean) {
+  if (!v) {
+    nextTick(() => {
+      props.resolve(false)
+    })
+  }
+}
 </script>
 
 <template>
   <VThemeProvider :theme="theme">
-    <VDialog v-bind="dialogProps" v-model="isOpen">
+    <VDialog v-bind="dialogProps" v-model="isOpen" @update:model-value="resolveIfHidden">
       <VCard v-bind="cardProps">
         <component :is="titleComponent" v-if="titleComponent" v-bind="titleComponentProps" />
         <VCardTitle v-else v-bind="cardTitleProps">
