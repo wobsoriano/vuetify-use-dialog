@@ -87,6 +87,14 @@ const props = defineProps({
     required: false,
     default: () => ({}),
   },
+  hideActions: {
+    type: Boolean,
+    default: false
+  },
+  hideTitle: {
+    type: Boolean,
+    default: false
+  },
   theme: {
     type: String,
     required: true,
@@ -136,11 +144,11 @@ function resolveIfHidden(v: boolean) {
     <VDialog v-bind="dialogProps" v-model="isOpen" @update:model-value="resolveIfHidden">
       <VCard v-bind="cardProps">
         <component :is="titleComponent" v-if="titleComponent" v-bind="titleComponentProps" />
-        <VCardTitle v-else v-bind="cardTitleProps">
+        <VCardTitle v-else-if="!hideTitle" v-bind="cardTitleProps">
           {{ title }}
         </VCardTitle>
         <VCardText v-bind="cardTextProps">
-          <component :is="contentComponent" v-if="contentComponent" v-bind="contentComponentProps" />
+          <component :is="contentComponent" v-if="contentComponent" v-bind="contentComponentProps" v-on:confirm="confirm" v-on:cancel="cancel" />
           <template v-else>
             <template v-if="content">
               {{ content }}
@@ -148,7 +156,7 @@ function resolveIfHidden(v: boolean) {
             <VTextField v-if="confirmationKeyword" ref="textFieldInput" v-model="textField" v-bind="confirmationKeywordTextFieldProps" variant="underlined" />
           </template>
         </VCardText>
-        <VCardActions v-bind="cardActionsProps">
+        <VCardActions v-if="!hideActions" v-bind="cardActionsProps">
           <component :is="actionsContentComponent" v-if="actionsContentComponent" :confirmation-button-disabled="confirmationButtonDisabled" :cancel="cancel" :confirm="confirm" />
           <template v-else>
             <VSpacer />

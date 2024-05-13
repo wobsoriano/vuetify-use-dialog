@@ -10,6 +10,7 @@ type ExtractProps<TComponent> =
     : never
 
 export interface ConfirmDialogOptions {
+  actionsContentComponent?: Component
   title?: string
   titleComponent?: Component
   titleComponentProps?: Record<string, any>
@@ -27,6 +28,8 @@ export interface ConfirmDialogOptions {
   confirmationButtonProps?: ExtractProps<typeof VBtn>
   confirmationKeyword?: string
   confirmationKeywordTextFieldProps?: ExtractProps<typeof VTextField>
+  hideActions?: boolean
+  hideTitle?: boolean
   theme?: string
   /**
    * @internal

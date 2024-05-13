@@ -1,12 +1,20 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useConfirm, useSnackbar } from '@/.'
+import { useConfirm, useSnackbar } from '../lib/index'
+import { useSelectItem } from './UseSelectItem'
 
 const confirm = useConfirm()
 const toast = useSnackbar()
+const selectItem = useSelectItem()
 
 const originalItems = ['Vue', 'React', 'Solid', 'Angular', 'Svelte']
 const items = ref(originalItems)
+
+async function customConfirm() {
+  const res = await selectItem()
+  console.log(res)
+  // toast(res)
+}
 
 async function removeItem(index: number) {
   const result = await confirm({
@@ -64,6 +72,8 @@ async function clear() {
       </template>
     </VToolbar>
     <VList>
+      <VListItem title="Custom Select" @click="customConfirm" />
+
       <VListItem v-for="(item, index) of items" :key="index" :title="item">
         <template #append>
           <VBtn
