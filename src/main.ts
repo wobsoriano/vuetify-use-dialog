@@ -3,7 +3,7 @@ import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import App from './App.vue'
-import Plugin from '@/.'
+import Plugin from '../lib/index'
 
 const app = createApp(App)
 const vuetify = createVuetify()
