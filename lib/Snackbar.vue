@@ -63,9 +63,7 @@ const finalSnackbarProps = computed(() => {
         {{ text }}
       </template>
       <template v-if="showCloseButton" #actions>
-        <VBtn v-bind="closeButtonProps" variant="text" @click="snackbar = false">
-          {{ closeButtonText }}
-        </VBtn>
+        <VBtn variant="text" :text="closeButtonText" v-bind="closeButtonProps" @click="snackbar = false" />
       </template>
     </VSnackbar>
   </VThemeProvider>
