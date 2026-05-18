@@ -4,11 +4,10 @@
     "jsx": "preserve",
     "lib": ["ESNext", "DOM"],
     "useDefineForClassFields": true,
-    "baseUrl": "./",
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
     "paths": {
-      "@/*": ["lib/*"]
+      "@/*": ["./lib/*"]
     },
     "resolveJsonModule": true,
     "strict": true,
