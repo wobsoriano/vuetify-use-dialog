@@ -48,7 +48,7 @@ export interface SnackbarOptions {
   onClose?: () => void
 }
 
-export function mount(component: Component, props: ConfirmDialogOptions & { promiseId: string } | SnackbarOptions, app: App, el?: HTMLDivElement) {
+export function mount(component: Component, props: ConfirmDialogOptions | SnackbarOptions, app: App, el?: HTMLDivElement) {
   const vNode: VNode | null = createVNode(component, {
     ...props,
   })
@@ -67,12 +67,6 @@ export function mount(component: Component, props: ConfirmDialogOptions & { prom
 }
 
 export interface ConfirmDialogKeyValue {
-  mountDialog: (options: ConfirmDialogOptions) => Promise<undefined>
+  mountDialog: (options: ConfirmDialogOptions) => Promise<boolean>
   mountSnackbar: (options: SnackbarOptions) => void
-  state: {
-    promiseIds: Map<string, {
-      resolve: ((value: unknown) => void)
-      reject: ((value: unknown) => void)
-    }>
-  }
 }

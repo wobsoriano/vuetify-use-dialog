@@ -1,10 +1,12 @@
-import type { Plugin } from 'vue'
+import type { InjectionKey, Plugin } from 'vue'
 import { inject, render } from 'vue'
 import { useTheme } from 'vuetify'
 import { defu } from 'defu'
 import ConfirmDialog from './ConfirmDialog.vue'
 import Snackbar from './Snackbar.vue'
 import { type ConfirmDialogKeyValue, type ConfirmDialogOptions, type SnackbarOptions, mount } from './utils'
+
+const ConfirmDialogKey: InjectionKey<ConfirmDialogKeyValue> = Symbol('ConfirmDialogKey')
 
 interface GlobalOptions {
   confirmDialog: ConfirmDialogOptions
@@ -17,15 +19,13 @@ const plugin: Plugin = {
   install(app, globalOptions?: GlobalOptions) {
     function mountDialog(options: ConfirmDialogOptions) {
       return new Promise<boolean>((resolve) => {
-        return new Promise<boolean>((_resolve) => {
-          mount(ConfirmDialog, {
-            ...defu(options, globalOptions?.confirmDialog ?? {}),
-            resolve: _resolve,
-          }, app)
-        }).then((value) => {
-          render(null, app._container.firstElementChild)
-          resolve(value)
-        })
+        mount(ConfirmDialog, {
+          ...defu(options, globalOptions?.confirmDialog ?? {}),
+          resolve(value: boolean) {
+            render(null, app._container.firstElementChild)
+            resolve(value)
+          },
+        }, app)
       })
     }
 
@@ -40,7 +40,7 @@ const plugin: Plugin = {
       }, app, mountEl)
     }
 
-    app.provide('ConfirmDialogKey', {
+    app.provide(ConfirmDialogKey, {
       mountDialog,
       mountSnackbar,
     })
@@ -56,7 +56,7 @@ const plugin: Plugin = {
 }
 
 function useConfirm() {
-  const dialog = inject('ConfirmDialogKey') as ConfirmDialogKeyValue
+  const dialog = inject(ConfirmDialogKey)
   const theme = useTheme()
 
   function confirm(options: ConfirmDialogOptions) {
@@ -73,7 +73,7 @@ function useConfirm() {
 }
 
 function useSnackbar() {
-  const dialog = inject('ConfirmDialogKey') as ConfirmDialogKeyValue
+  const dialog = inject(ConfirmDialogKey)
 
   const theme = useTheme()
 
