@@ -4,8 +4,6 @@
 
 A module that simplifies the creation of dialogs and snackbars in [Vuetify](https://next.vuetifyjs.com).
 
-Demo: [StackBlitz](https://stackblitz.com/edit/vitejs-vite-mp6ajx?file=src%2Fcomponents%2FDemo.vue)
-
 ## Installation
 
 ```bash
@@ -57,8 +55,6 @@ async function handleConfirm() {
   </VBtn>
 </template>
 ```
-
-Check [this](https://github.com/wobsoriano/vuetify-use-dialog/issues/4) if you're using Options API.
 
 ## Options
 
