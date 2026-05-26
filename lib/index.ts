@@ -94,4 +94,6 @@ export {
   plugin as default,
   useConfirm,
   useSnackbar,
+  SnackbarOptions,
+  ConfirmDialogOptions
 }
